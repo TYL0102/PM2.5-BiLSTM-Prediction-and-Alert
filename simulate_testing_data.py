@@ -1,10 +1,9 @@
 import serial
 import board
 import adafruit_dht
-import pandas as pd
-from datetime import datetime
 import paho.mqtt.client as mqtt
 import json
+import time
 
 COLLECT_INTERVAL = 5
 
@@ -86,7 +85,7 @@ if __name__ == "__main__" :
             pm25 = read_sds011(last_pm25)
             temperature, humidity = read_dht11(last_temperature, last_humidity)
             data = {
-                "pm25": round(pm25, 2),
+                "pm25": round(pm25 + pm25_increase, 2),
                 "temperature": round(temperature, 2),
                 "humidity": round(humidity, 2)
             }
